@@ -4,10 +4,22 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Maneja las operaciones CRUD (Crear, Leer, Actualizar, Eliminar) 
+ * sobre objetos Album en el sistema de archivos.
+ */
+
 public class AlbumDAO {
+    /**
+     * Ruta del directorio donde se guardarán los álbumes serializados.
+     */
 
     private final String PATH_FOLDER = "C:/uaemex/paradigmas1/musica/albumes";
-
+    /**
+     * Constructor de AlbumDAO.
+     * Verifica si el directorio para almacenar los álbumes existe, 
+     * y lo crea si es necesario.
+     */
     public AlbumDAO() {
         // Ensure the directory exists
         File folder = new File(PATH_FOLDER);
@@ -15,7 +27,11 @@ public class AlbumDAO {
             folder.mkdirs();
         }
     }
-
+    /**
+     * Inserta un álbum en el almacenamiento serializando el objeto.
+     *
+     * @param album El álbum a insertar.
+     */
     public void insert(Album album) {
         File file = new File(PATH_FOLDER + File.separator + album.getId() + ".txt");
         try (FileOutputStream fileOut = new FileOutputStream(file);
@@ -27,7 +43,12 @@ public class AlbumDAO {
             e.printStackTrace();
         }
     }
-
+     /**
+     * Selecciona un álbum del almacenamiento basado en su ID.
+     *
+     * @param id El ID del álbum a buscar.
+     * @return El álbum encontrado o null si no se encuentra.
+     */
     public Album select(Integer id) {
         Album album = null;
         File file = new File(PATH_FOLDER + File.separator + id + ".txt");
@@ -41,7 +62,11 @@ public class AlbumDAO {
         }
         return album;
     }
-
+    /**
+     * Lista todos los IDs de los álbumes almacenados.
+     * 
+     * @return Lista de IDs de álbumes.
+     */
     public List<Integer> list() {
         List<Integer> ids = new ArrayList<>();
         File folder = new File(PATH_FOLDER);
@@ -59,10 +84,19 @@ public class AlbumDAO {
         }
         return ids;
     }
-
+/**
+     * Actualiza un álbum en el almacenamiento serializándolo de nuevo.
+     *
+     * @param album El álbum con los cambios a actualizar.
+     */
     public void update(Album album) {
         insert(album); // Reuse insert logic to handle update
     }
+    /**
+     * Elimina un álbum del almacenamiento basado en su ID.
+     *
+     * @param id El ID del álbum a eliminar.
+     */
 
     public void delete(Integer id) {
         File file = new File(PATH_FOLDER + File.separator + id + ".txt");
