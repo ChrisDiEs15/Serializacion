@@ -11,7 +11,8 @@ import java.util.Scanner;
 public class Serializacion {
 
     public static void main(String[] args) {
-    
+    VentanaCRUD ventana = new VentanaCRUD();
+    ventana.setVisible(true);
         
     }
 }
